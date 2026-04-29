@@ -1,0 +1,80 @@
+body {
+  background: linear-gradient(135deg, #0f172a, #1e293b);
+  color: white;
+  font-family: Arial;
+}
+
+/* Header */
+.header {
+  background: #020617;
+  padding: 10px;
+  border-bottom: 1px solid #334155;
+}
+
+.red {
+  color: red;
+}
+
+.lang-btn {
+  background: #1e293b;
+  border: none;
+  color: white;
+  margin-left: 5px;
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+
+/* Tools bar */
+.tools-bar {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+.tool {
+  background: #1e293b;
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.tool:hover {
+  background: #334155;
+}
+
+/* Upload box */
+.upload-box {
+  border: 2px dashed #64748b;
+  padding: 50px;
+  text-align: center;
+  border-radius: 12px;
+}
+
+.browse {
+  color: skyblue;
+  cursor: pointer;
+}
+
+/* Ads */
+.ad-box {
+  height: 80px;
+  background: #1e293b;
+  margin: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: gray;
+}
+
+.ad-box.big {
+  height: 120px;
+}
+
+/* Footer */
+.footer {
+  margin-top: 30px;
+  padding: 20px;
+  font-size: 14px;
+  color: gray;
+}

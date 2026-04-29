@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>PDF to JPG</title>
+
+  <script src="https://mozilla.github.io/pdf.js/build/pdf.js"></script>
+
+  <style>
+    body {
+      background: #0f172a;
+      color: white;
+      text-align: center;
+      font-family: Arial;
+      padding: 40px;
+    }
+
+    #dropArea {
+      border: 2px dashed #64748b;
+      padding: 50px;
+      border-radius: 15px;
+      margin-bottom: 20px;
+    }
+
+    canvas {
+      margin-top: 20px;
+      max-width: 100%;
+    }
+  </style>
+</head>
+
+<body>
+
+<h2>PDF to JPG</h2>
+
+<div id="dropArea">
+  Drag & Drop PDF
+  <br><br>
+  <input type="file" id="fileInput">
+</div>
+
+<button onclick="convertPDF()">Convert to JPG</button>
+
+<div id="output"></div>
+
+<script>
+let selectedFile;
+
+document.getElementById("fileInput").addEventListener("change", (e) => {
+  selectedFile = e.target.files[0];
+});
+
+// drag drop
+const dropArea = document.getElementById("dropArea");
+
+dropArea.ondragover = (e) => e.preventDefault();
+
+dropArea.ondrop = (e) => {
+  e.preventDefault();
+  selectedFile = e.dataTransfer.files[0];
+};
+
+async function convertPDF() {
+
+  if (!selectedFile) return alert("File select karo");
+
+  const fileReader = new FileReader();
+
+  fileReader.onload = async function() {
+
+    const typedarray = new Uint8Array(this.result);
+
+    const pdf = await pdfjsLib.getDocument(typedarray).promise;
+
+    document.getElementById("output").innerHTML = "";
+
+    for (let i = 1; i <= pdf.numPages; i++) {
+
+      const page = await pdf.getPage(i);
+
+      const viewport = page.getViewport({ scale: 2 });
+
+      const canvas = document.createElement("canvas");
+      const context = canvas.getContext("2d");
+
+      canvas.height = viewport.height;
+      canvas.width = viewport.width;
+
+      await page.render({
+        canvasContext: context,
+        viewport: viewport
+      }).promise;
+
+      // Convert canvas to image
+      const img = canvas.toDataURL("image/jpeg");
+
+      const link = document.createElement("a");
+      link.href = img;
+      link.download = "page-" + i + ".jpg";
+      link.innerText = "Download Page " + i;
+
+      document.getElementById("output").appendChild(canvas);
+      document.getElementById("output").appendChild(document.createElement("br"));
+      document.getElementById("output").appendChild(link);
+      document.getElementById("output").appendChild(document.createElement("hr"));
+    }
+  };
+
+  fileReader.readAsArrayBuffer(selectedFile);
+}
+</script>
+
+</body>
+</html>

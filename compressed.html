@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Compress PDF</title>
+  <script src="https://unpkg.com/pdf-lib"></script>
+</head>
+
+<body style="background:#0f172a; color:white; text-align:center; padding:50px;">
+
+<h2>Compress PDF</h2>
+
+<div id="dropArea" style="border:2px dashed gray; padding:40px;">
+  Drag & Drop PDF Here
+  <br><br>
+  <input type="file" id="fileInput">
+</div>
+
+<br>
+<button onclick="compressPDF()">Compress & Download</button>
+
+<script>
+let selectedFile;
+
+document.getElementById("fileInput").addEventListener("change", (e) => {
+  selectedFile = e.target.files[0];
+});
+
+// Drag Drop
+const dropArea = document.getElementById("dropArea");
+
+dropArea.ondragover = (e) => {
+  e.preventDefault();
+};
+
+dropArea.ondrop = (e) => {
+  e.preventDefault();
+  selectedFile = e.dataTransfer.files[0];
+};
+
+async function compressPDF() {
+  if (!selectedFile) return alert("File select karo");
+
+  const arrayBuffer = await selectedFile.arrayBuffer();
+  const pdfDoc = await PDFLib.PDFDocument.load(arrayBuffer);
+
+  const compressed = await pdfDoc.save({
+    useObjectStreams: true
+  });
+
+  const blob = new Blob([compressed], { type: 'application/pdf' });
+
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = "compressed.pdf";
+  a.click();
+}
+</script>
+
+</body>
+</html>
+<div id="loader" style="display:none; margin-top:20px;">
+  <div class="spinner"></div>
+  <p>Processing PDF...</p>
+</div>
