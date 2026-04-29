@@ -1,80 +1,26 @@
-body {
-  background: linear-gradient(135deg, #0f172a, #1e293b);
-  color: white;
-  font-family: Arial;
-}
-
-/* Header */
-.header {
-  background: #020617;
-  padding: 10px;
-  border-bottom: 1px solid #334155;
-}
-
-.red {
-  color: red;
-}
-
-.lang-btn {
-  background: #1e293b;
-  border: none;
-  color: white;
-  margin-left: 5px;
-  padding: 5px 10px;
-  border-radius: 5px;
-}
-
-/* Tools bar */
-.tools-bar {
-  display: flex;
-  justify-content: center;
-  gap: 15px;
-}
-
-.tool {
-  background: #1e293b;
-  padding: 10px 20px;
-  border-radius: 8px;
-  cursor: pointer;
+.upload-box {
+  border: 2px dashed #64748b;
+  padding: 60px;
+  text-align: center;
+  border-radius: 15px;
   transition: 0.3s;
 }
 
-.tool:hover {
-  background: #334155;
-}
-
-/* Upload box */
-.upload-box {
-  border: 2px dashed #64748b;
-  padding: 50px;
-  text-align: center;
-  border-radius: 12px;
-}
-
-.browse {
-  color: skyblue;
-  cursor: pointer;
-}
-
-/* Ads */
-.ad-box {
-  height: 80px;
+.upload-box:hover {
+  border-color: red;
   background: #1e293b;
-  margin: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: gray;
 }
 
-.ad-box.big {
-  height: 120px;
+.spinner {
+  border: 5px solid #ccc;
+  border-top: 5px solid red;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+  margin: auto;
 }
 
-/* Footer */
-.footer {
-  margin-top: 30px;
-  padding: 20px;
-  font-size: 14px;
-  color: gray;
+@keyframes spin {
+  100% { transform: rotate(360deg); }
 }
