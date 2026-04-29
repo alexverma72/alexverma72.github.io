@@ -1,29 +1,27 @@
 body {
-  background: #f8f9fa;
+  background: #f4f7fb;
   font-family: Arial;
 }
 
-/* Upload box */
-.upload-box {
-  border: 2px dashed #0d6efd;
-  padding: 50px;
-  border-radius: 12px;
+.tool-card {
   background: white;
+  padding: 30px;
+  border-radius: 10px;
+  cursor: pointer;
   transition: 0.3s;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
 }
 
-.upload-box:hover {
+.tool-card:hover {
+  transform: translateY(-5px);
   background: #e9f2ff;
-  cursor: pointer;
 }
 
-.upload-box span {
-  color: #0d6efd;
-  cursor: pointer;
-  font-weight: bold;
-}
-
-#fileName {
-  margin-top: 10px;
-  color: green;
+.ad-box {
+  height: 90px;
+  background: #eaeaea;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: gray;
 }
