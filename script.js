@@ -55,4 +55,21 @@ async function compressPDF() {
     alert("Network error");
     console.error(error);
   }
+  function openTool(tool) {
+
+  if (tool === "compress") {
+    window.location.href = "index.html";
+  }
+
+  else if (tool === "merge") {
+    window.location.href = "tools/merge.html";
+  }
+
+  else if (tool === "jpg") {
+    window.location.href = "tools/pdf-to-jpg.html";
+  }
+
+  else {
+    alert(tool + " coming soon");
+  }
 }
