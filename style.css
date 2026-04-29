@@ -1,26 +1,29 @@
+body {
+  background: #f8f9fa;
+  font-family: Arial;
+}
+
+/* Upload box */
 .upload-box {
-  border: 2px dashed #64748b;
-  padding: 60px;
-  text-align: center;
-  border-radius: 15px;
+  border: 2px dashed #0d6efd;
+  padding: 50px;
+  border-radius: 12px;
+  background: white;
   transition: 0.3s;
 }
 
 .upload-box:hover {
-  border-color: red;
-  background: #1e293b;
+  background: #e9f2ff;
+  cursor: pointer;
 }
 
-.spinner {
-  border: 5px solid #ccc;
-  border-top: 5px solid red;
-  border-radius: 50%;
-  width: 40px;
-  height: 40px;
-  animation: spin 1s linear infinite;
-  margin: auto;
+.upload-box span {
+  color: #0d6efd;
+  cursor: pointer;
+  font-weight: bold;
 }
 
-@keyframes spin {
-  100% { transform: rotate(360deg); }
+#fileName {
+  margin-top: 10px;
+  color: green;
 }
