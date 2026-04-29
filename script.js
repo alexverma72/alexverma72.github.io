@@ -1,35 +1,37 @@
+<script>
+let selectedFile;
+
+document.getElementById("fileInput").addEventListener("change", (e) => {
+  selectedFile = e.target.files[0];
+});
+
 async function compressPDF() {
+
   if (!selectedFile) return alert("File select karo");
+
+  const apiKey = "alexverma72@gmail.com_F0zGgDsFAnSyDQIpD8nRIVE6tSkD0YP1g3YsjcGPkEH7ygcpROMl0dhLUrLtgmyN";
+
+  const formData = new FormData();
+  formData.append("file", selectedFile);
 
   document.getElementById("loader").style.display = "block";
 
-  const arrayBuffer = await selectedFile.arrayBuffer();
-  const pdfDoc = await PDFLib.PDFDocument.load(arrayBuffer);
-
-  const compressed = await pdfDoc.save({
-    useObjectStreams: true
+  const response = await fetch("https://api.pdf.co/v1/pdf/optimize", {
+    method: "POST",
+    headers: {
+      "x-api-key": apiKey
+    },
+    body: formData
   });
+
+  const data = await response.json();
 
   document.getElementById("loader").style.display = "none";
 
-  const blob = new Blob([compressed], { type: 'application/pdf' });
-
-  const a = document.createElement("a");
-  a.href = URL.createObjectURL(blob);
-  a.download = "compressed.pdf";
-  a.click();
-}
-let isHindi = false;
-
-function toggleLang() {
-  isHindi = !isHindi;
-
-  if (isHindi) {
-    document.querySelector("h1").innerText = "बाबाज़ोन PDF मशीन";
+  if (data.url) {
+    window.open(data.url);
   } else {
-    document.querySelector("h1").innerText = "BABAZONE PDF MACHINE";
+    alert("Error: " + data.message);
   }
 }
-else if (tool === "jpg") {
-  window.location.href = "tools/pdf-to-jpg.html";
-}
+</script>
