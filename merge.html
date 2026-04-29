@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Merge PDF</title>
+  <script src="https://unpkg.com/pdf-lib"></script>
+</head>
+
+<body style="background:#0f172a;color:white;text-align:center;padding:40px;">
+
+<h2>Merge PDF Files</h2>
+
+<input type="file" id="filesInput" multiple>
+<br><br>
+
+<button onclick="mergePDF()">Merge & Download</button>
+
+<p id="status"></p>
+
+<script>
+async function mergePDF() {
+
+  const files = document.getElementById("filesInput").files;
+
+  if (files.length < 2) {
+    alert("Minimum 2 files select karo");
+    return;
+  }
+
+  document.getElementById("status").innerText = "Processing...";
+
+  const mergedPdf = await PDFLib.PDFDocument.create();
+
+  for (let file of files) {
+
+    const arrayBuffer = await file.arrayBuffer();
+    const pdf = await PDFLib.PDFDocument.load(arrayBuffer);
+
+    const pages = await mergedPdf.copyPages(pdf, pdf.getPageIndices());
+
+    pages.forEach(page => mergedPdf.addPage(page));
+  }
+
+  const mergedBytes = await mergedPdf.save();
+
+  const blob = new Blob([mergedBytes], { type: "application/pdf" });
+
+  const link = document.createElement("a");
+  link.href = URL.createObjectURL(blob);
+  link.download = "merged.pdf";
+  link.click();
+
+  document.getElementById("status").innerText = "Done ✅";
+}
+</script>
+
+</body>
+</html>
